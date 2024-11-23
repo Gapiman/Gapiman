@@ -1,0 +1,2793 @@
+<html><head><base href="." />
+<title>Ciguda - Your Business Management Solution</title>
+<style>
+    :root {
+        --primary: #2c3e50;
+        --secondary: #34495e;
+        --accent: #e74c3c;
+        --light: #f8f9fa;
+        --success: #2ecc71;
+        --warning: #f1c40f;
+        --gold: #d4af37;
+        --silver: #c0c0c0;
+        --dark-blue: #1a2639;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background: #000000;
+        color: var(--light);
+    }
+
+    .dashboard {
+        background: #000000;
+    }
+
+    /* Updated login-container styles */
+    .login-container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000000; /* Changed to black background */
+    }
+
+    /* Updated login-form styles */
+    .login-form {
+        background: #1a1a1a; /* Darker background to match theme */
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        width: 400px;
+        color: var(--light); /* Make text light colored */
+    }
+
+    .login-form .input-group input {
+        width: 100%;
+        padding: 0.75rem;
+        background: #2a2a2a;
+        color: var(--light);
+        border: 2px solid #333;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+    }
+
+    .login-form .input-group input:focus {
+        border-color: var(--accent);
+        outline: none;
+    }
+
+    .login-form .input-group label {
+        color: var(--light);
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .login-form .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--dark-blue));
+        color: var(--light);
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .login-form .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .login-form .text-center {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .login-form .text-center img {
+        margin-bottom: 1rem;
+    }
+
+    .login-form .text-center h2 {
+        color: var(--light);
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    .sidebar {
+        width: 100%;
+        background: linear-gradient(90deg, var(--dark-blue), var(--primary));
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        margin-right: 2rem;
+    }
+
+    .logo-container img {
+        height: 40px;
+        width: auto;
+        margin-right: 1rem;
+    }
+
+    .logo-container h2 {
+        margin: 0;
+        color: white;
+    }
+
+    .nav-items {
+        display: inline-flex;
+        gap: 1rem;
+        margin: 0;
+        vertical-align: middle;
+    }
+
+    .nav-items li {
+        margin: 0;
+        padding: 0.75rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+    }
+
+    .nav-items li:hover {
+        background: rgba(255,255,255,0.15);
+        transform: translateY(-2px);
+    }
+
+    .nav-items li.active {
+        background: rgba(255,255,255,0.1);
+        color: var(--gold);
+    }
+
+    .main-content {
+        margin-top: 80px; /* Add space for fixed nav */
+        padding: 2rem;
+        min-height: calc(100vh - 80px);
+    }
+
+    .card {
+        background: #1a1a1a;
+        color: var(--light);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--dark-blue));
+        border: none;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .table {
+        background: #1a1a1a;
+        color: var(--light);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .table th {
+        background: var(--primary);
+        color: white;
+        padding: 1.25rem 1rem;
+        font-weight: 500;
+    }
+
+    .table td {
+        padding: 1.25rem 1rem;
+        vertical-align: middle;
+        color: var(--light);
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: #1a1a1a;
+        color: var(--light);
+        width: 90%;
+        max-width: 500px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        animation: modalPop 0.3s ease forwards;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    @keyframes modalPop {
+        from {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .modal-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background: linear-gradient(135deg, var(--primary), var(--dark-blue));
+        color: white;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .modal-header .close-btn {
+        position: sticky;
+        top: 10px;
+        right: 10px;
+        z-index: 1001;
+        background: rgba(255,255,255,0.2);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .modal-header .close-btn:hover {
+        background: rgba(255,255,255,0.3);
+        transform: rotate(90deg);
+    }
+
+    .modal-body {
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+        padding: 1.5rem;
+        background: #1a1a1a;
+        color: var(--light);
+    }
+
+    .close-btn {
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+        background: rgba(255,255,255,0.2);
+        transform: rotate(90deg);
+    }
+
+    .input-group {
+        margin-bottom: 1rem;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--light);
+        font-weight: 500;
+    }
+
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+        width: 100%;
+        padding: 0.75rem;
+        background: #2a2a2a;
+        color: var(--light);
+        border: 2px solid #333;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus,
+    .input-group select:focus {
+        border-color: var(--accent);
+        background: #2a2a2a;
+    }
+
+    .shift-actions {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .calendar-container {
+        background: #1a1a1a;
+        color: var(--light);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 10px 0;
+    }
+
+    .calendar-weekdays {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 15px;
+    }
+
+    .calendar-weekdays div {
+        flex: 1;
+        text-align: center;
+        font-weight: 500;
+        color: var(--light);
+    }
+
+    .calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr); /* 7 columns for 7 days */
+        gap: 5px;
+    }
+
+    .calendar-day {
+        padding: 10px;
+        min-height: 100px;
+        text-align: center;
+        background: #2a2a2a;
+        color: var(--light);
+        border: 1px solid #333;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .event-dots {
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 3px;
+    }
+
+    .event-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--primary);
+    }
+
+    .shift-indicator {
+        font-size: 0.8em;
+        padding: 2px 4px;
+        margin: 2px 0;
+    }
+
+    .shift-indicator.day {
+        background: rgba(44, 62, 80, 0.1);
+        color: var(--primary);
+    }
+
+    .shift-indicator.night {
+        background: rgba(52, 73, 94, 0.1);
+        color: var(--secondary);
+    }
+
+    .payment-indicator {
+        font-size: 0.8em;
+        padding: 2px 4px;
+        margin: 2px 0;
+        background: rgba(231, 76, 60, 0.1);
+        color: var(--accent);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card, .modal-content, .table {
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Add these styles */
+    .balance-actions .input-group {
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .balance-actions input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #eee;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .balance-actions input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+        outline: none;
+    }
+
+    .partner-details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        min-height: 75vh; /* Make it take at least 75% of viewport height */
+    }
+
+    .details-section {
+        flex: 1;
+    }
+
+    .details-section:nth-child(3), /* Items History section */
+    .details-section:nth-child(4) { /* Add Items History section */
+        flex: 3; /* Make these sections take up more space */
+    }
+
+    .partner-details .details-section h4 {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--primary);
+    }
+
+    .partner-details ul {
+        max-height: calc(75vh - 100px); /* Set max height relative to viewport */
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        list-style: none;
+    }
+
+    .partner-details ul li {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+    }
+
+    .partner-details .status-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        margin-left: 10px;
+    }
+
+    .partner-details .item-dates {
+        margin-top: 5px;
+        font-size: 0.8em;
+        color: #666;
+    }
+
+    /* Add these styles */
+    .btn-success.btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        border-radius: 0.2rem;
+        background-color: var(--success);
+        border: none;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .btn-success.btn-sm:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .me-2 {
+        margin-right: 0.5rem;
+    }
+
+    input[type="file"] {
+        padding: 0.5rem;
+        border: 2px solid #eee;
+        border-radius: 8px;
+        width: 100%;
+    }
+
+    .text-muted {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
+    .mb-3 {
+        margin-bottom: 1rem;
+    }
+
+    .mt-3 {
+        margin-top: 1rem;
+    }
+
+    .language-toggle {
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        z-index: 1001;
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .language-toggle:hover {
+        background: var(--secondary);
+        transform: translateY(-2px);
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .dashboard-grid .card {
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .dashboard-grid .stat {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin: 1rem 0;
+    }
+
+    .dashboard-grid .sub-stat {
+        font-size: 0.9rem;
+        color: var(--secondary);
+    }
+
+    .dashboard-charts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .dashboard-notes {
+        margin-top: 2rem;
+    }
+
+    .notes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .note-card {
+        background: #1a1a1a;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        color: var(--light);
+    }
+
+    .note-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .note-card h4 {
+        margin-bottom: 1rem;
+        color: var(--light);
+    }
+
+    .note-card p {
+        color: var(--secondary);
+        margin-bottom: 1rem;
+    }
+
+    .recent-list {
+        margin-top: 1rem;
+    }
+
+    .recent-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .recent-item:last-child {
+        border-bottom: none;
+    }
+
+    .recent-item .pending {
+        color: var(--warning);
+    }
+
+    .recent-item .done {
+        color: var(--success);
+    }
+
+    /* Add these styles */
+    .btn-close {
+        padding: 0.25rem;
+        transition: color 0.3s ease;
+    }
+
+    .btn-close:hover {
+        color: #bb2d3b;
+    }
+
+    .note-card .btn-close {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .note-card:hover .btn-close {
+        opacity: 1;
+    }
+
+    /* Add to your existing styles */
+    .points-section {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #1a1a1a;
+        color: var(--light);
+        border-radius: 8px;
+    }
+
+    .points-actions {
+        display: flex;
+        gap: 1rem;
+        margin: 1rem 0;
+        align-items: flex-end;
+    }
+
+    .points-history {
+        margin-top: 1rem;
+    }
+
+    .points-history-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .points-history-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        border-bottom: 1px solid #333;
+    }
+
+    .points-history-details {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .points-history-description {
+        color: #666;
+    }
+
+    .points-history-date {
+        color: #999;
+        font-size: 0.9em;
+    }
+
+    .text-success {
+        color: var(--success);
+    }
+
+    .text-warning {
+        color: var(--warning);
+    }
+
+    .transaction-list {
+        color: var(--light);
+    }
+
+    .recent-item {
+        border-color: #333;
+    }
+
+    .prescription-row {
+        background-color: #1a1a1a !important;
+    }
+
+    .prescription-row:hover {
+        background-color: #2a2a2a !important;
+    }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button class="language-toggle" @click="toggleLanguage">
+            {{ currentLanguage === 'en' ? 'Ελληνικά' : 'English' }}
+        </button>
+
+        <!-- Login Form -->
+        <div class="login-container" v-if="!isLoggedIn">
+            <div class="login-form">
+                <div class="text-center mb-4">
+                    <img src="Dark Blue Business Partnership Logo (1).png" 
+                         alt="Ciguda logo - Two hands shaking inside an orange circle on a black background"
+                         width="80" 
+                         height="80" 
+                         style="margin-bottom: 1rem;">
+                    <h2>Ciguda Login</h2>
+                </div>
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" v-model="loginForm.username">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" v-model="loginForm.password">
+                </div>
+                <button class="btn btn-primary w-100" @click="login">Login</button>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard" v-else>
+            <div class="sidebar">
+                <div class="logo-container">
+                    <img src="Dark Blue Business Partnership Logo (1).png" 
+                         alt="Ciguda logo - Two hands shaking inside an orange circle on a black background" 
+                         width="40" 
+                         height="40">
+                    <h2>Ciguda</h2>
+                </div>
+                <nav>
+                    <ul class="nav-items">
+                        <li :class="{ active: currentView === 'dashboard' }" 
+                            @click="setCurrentView('dashboard')">{{ translate('dashboard') }}</li>
+                        <li :class="{ active: currentView === 'customers' }" 
+                            @click="setCurrentView('customers')">{{ translate('customers') }}</li>
+                        <li :class="{ active: currentView === 'partners' }" 
+                            @click="setCurrentView('partners')">{{ translate('partners') }}</li>
+                        <li :class="{ active: currentView === 'prescriptions' }" 
+                            @click="setCurrentView('prescriptions')">{{ translate('prescriptions') }}</li>
+                        <li :class="{ active: currentView === 'apotheke' }" 
+                            @click="setCurrentView('apotheke')">{{ translate('apotheke') }}</li>
+                        <li :class="{ active: currentView === 'pharmaCalendar' }" 
+                            @click="setCurrentView('pharmaCalendar')">{{ translate('pharmaCalendar') }}</li>
+                        <li v-if="isAdmin" 
+                            :class="{ active: currentView === 'users' }" 
+                            @click="setCurrentView('users')">{{ translate('users') }}</li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="main-content">
+                <!-- Dashboard View -->
+                <div v-if="currentView === 'dashboard'">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>{{ translate('dashboard') }}</h2>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3>{{ translate('customers') }}</h3>
+                            <div class="stat">{{ safeCustomers.length }}</div>
+                        </div>
+                        <div class="card">
+                            <h3>{{ translate('partners') }}</h3>
+                            <div class="stat">{{ safePartners.length }}</div>
+                        </div>
+                        <div class="card">
+                            <h3>{{ translate('prescriptions') }}</h3>
+                            <div class="stat">{{ prescriptions.length }}</div>
+                            <div class="sub-stat">
+                                {{ prescriptions.filter(p => p.status === 'pending').length }} {{ translate('pending') }}
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>{{ translate('users') }}</h3>
+                            <div class="stat">{{ safeUsers.length }}</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-charts mt-4">
+                        <div class="card">
+                            <h3>{{ translate('recentPrescriptions') }}</h3>
+                            <div class="recent-list">
+                                <div v-for="prescription in recentPrescriptions" 
+                                     :key="prescription.id" 
+                                     class="recent-item">
+                                    <div>{{ prescription.customerName }}</div>
+                                    <div>{{ prescription.prescriptionNumber }}</div>
+                                    <div :class="prescription.status">{{ prescription.status }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>{{ translate('upcomingPayments') }}</h3>
+                            <div class="recent-list">
+                                <div v-for="payment in upcomingPayments" 
+                                     :key="payment.id" 
+                                     class="recent-item">
+                                    <div>{{ payment.assignedTo }}</div>
+                                    <div>€{{ payment.amount }}</div>
+                                    <div>{{ formatDate(payment.date) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-notes mt-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3>{{ translate('notes') }}</h3>
+                            <button class="btn btn-primary" @click="showNoteModal = true">
+                                {{ translate('addNote') }}
+                            </button>
+                        </div>
+                        <div class="notes-grid" v-if="notes.length > 0">
+                            <div v-for="note in notes" :key="note.id" class="card note-card">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h4>{{ note.title }}</h4>
+                                    <button class="btn-close" @click="deleteNote(note.id)" 
+                                            style="background: none; border: none; color: #dc3545; cursor: pointer;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <p>{{ note.content }}</p>
+                                <small class="text-muted">{{ formatDate(note.date) }}</small>
+                            </div>
+                        </div>
+                        <div v-else class="card">
+                            <p class="text-center text-muted">{{ translate('noNotes') }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customers View -->
+                <div v-if="currentView === 'customers'">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>{{ translate('customers') }}</h2>
+                        <div>
+                            <button class="btn btn-primary me-2" @click="showAddCustomerModal = true">
+                                {{ translate('addCustomer') }}
+                            </button>
+                            <button class="btn btn-secondary" @click="showImportCustomersModal = true">
+                                {{ translate('importCustomers') }}
+                            </button>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{{ translate('name') }}</th>
+                                <th>{{ translate('balance') }}</th>
+                                <th>{{ translate('points') }}</th>
+                                <th>{{ translate('productsOwed') }}</th>
+                                <th>{{ translate('lastPayment') }}</th>
+                                <th>{{ translate('createdAt') }}</th>
+                                <th>{{ translate('lastUpdated') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="customer in safeCustomers" :key="customer.id" @click="showCustomerDetails(customer)" style="cursor: pointer;">
+                                <td>{{ customer.name }}</td>
+                                <td>€{{ customer.balance }}</td>
+                                <td>{{ customer.points }}</td>
+                                <td>{{ customer.productsOwed.join(', ') }}</td>
+                                <td>{{ customer.lastPayment }}</td>
+                                <td>{{ formatDate(customer.createdAt) }}</td>
+                                <td>{{ formatDate(customer.updatedAt) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Partners View -->
+                <div v-if="currentView === 'partners'">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>{{ translate('partners') }}</h2>
+                        <button class="btn btn-primary" @click="showAddPartnerModal = true">
+                            {{ translate('addPartner') }}
+                        </button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{{ translate('name') }}</th>
+                                <th>Company</th>
+                                <th>Contact</th>
+                                <th>{{ translate('createdAt') }}</th>
+                                <th>Actions</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-for="partner in safePartners" :key="partner.id">
+                                <tr class="partner-row">
+                                    <td @click="partner.isExpanded = !partner.isExpanded">{{ partner.name }} {{ partner.surname }}</td>
+                                    <td @click="partner.isExpanded = !partner.isExpanded">{{ partner.company }}</td>
+                                    <td @click="partner.isExpanded = !partner.isExpanded">{{ partner.contact }}</td>
+                                    <td @click="partner.isExpanded = !partner.isExpanded">{{ formatDate(partner.createdAt) }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" @click="showAddOwedItemModal = true; selectedPartnerId = partner.id">
+                                            {{ translate('addOwed') }}
+                                        </button>
+                                        <button class="btn btn-sm btn-success" @click="showAddLentItemModal = true; selectedPartnerId = partner.id">
+                                            {{ translate('addLent') }}
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <i class="fas" :class="partner.isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                                    </td>
+                                </tr>
+                                <tr v-if="partner.isExpanded">
+                                    <td colspan="5">
+                                        <div class="partner-details">
+                                            <div class="details-section">
+                                                <h4>Contact Information</h4>
+                                                <p><strong>Email:</strong> {{ partner.email }}</p>
+                                                <p><strong>Phone:</strong> {{ partner.phone }}</p>
+                                                <p><strong>Address:</strong> {{ partner.address }}</p>
+                                                <p><strong>Description:</strong> {{ partner.description }}</p>
+                                            </div>
+
+                                            <div class="details-section">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <h4>Items History</h4>
+                                                    <button class="btn btn-primary" @click="printPartnerHistory(partner)">
+                                                        <i class="fas fa-print"></i> Print History
+                                                    </button>
+                                                </div>
+                                                <h5>Owed Items History</h5>
+                                                <div v-if="partner.owedItemsHistory && partner.owedItemsHistory.length === 0">No history</div>
+                                                <ul v-else>
+                                                    <li v-for="(item, index) in partner.owedItemsHistory" :key="index">
+                                                        {{ item.name }} - {{ item.quantity }}
+                                                        <span class="status-badge" :class="item.status">
+                                                            {{ item.status }}
+                                                        </span>
+                                                        <div class="item-dates">
+                                                            <small>Added: {{ formatDate(item.date) }}</small>
+                                                            <small v-if="item.returnDate">Returned: {{ formatDate(item.returnDate) }}</small>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="details-section">
+                                                <h4>Items Lent</h4>
+                                                <div v-if="partner.lentItems.length === 0">No items lent</div>
+                                                <ul v-else>
+                                                    <li v-for="(item, index) in partner.lentItems" :key="index">
+                                                        {{ item.name }} - {{ item.quantity }}
+                                                        <button class="btn btn-sm btn-success" 
+                                                                @click="returnLentItem(partner.id, index)">
+                                                            {{ translate('returnItem') }}
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- Items Owed Section -->
+                                            <div class="details-section">
+                                                <h4>Items Owed</h4>
+                                                <div v-if="partner.owedItems.length === 0">No items owed</div>
+                                                <ul v-else>
+                                                    <li v-for="(item, index) in partner.owedItems" :key="index">
+                                                        {{ item.name }} - {{ item.quantity }}
+                                                        <button class="btn btn-sm btn-success" 
+                                                                @click="returnOwedItem(partner.id, index)">
+                                                            {{ translate('returnItem') }}
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Prescriptions View -->
+                <div v-if="currentView === 'prescriptions'">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>{{ translate('prescriptions') }}</h2>
+                        <div>
+                            <button class="btn btn-primary me-2" @click="showAddPrescriptionModal = true">
+                                {{ translate('addPrescription') }}
+                            </button>
+                            <button class="btn btn-secondary" @click="showImportPrescriptionsModal = true">
+                                {{ translate('importPrescriptions') }}
+                            </button>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Prescription #</th>
+                                <th>{{ translate('customers') }}</th>
+                                <th style="cursor: pointer" @click="prescriptionSortOrder = prescriptionSortOrder === 'desc' ? 'asc' : 'desc'">
+                                    Date 
+                                    <i class="fas" :class="prescriptionSortOrder === 'desc' ? 'fa-sort-down' : 'fa-sort-up'"></i>
+                                </th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-for="prescription in sortedPrescriptions" :key="prescription.id">
+                                <tr class="prescription-row" 
+                                    :style="{ 
+                                        backgroundColor: new Date(prescription.date) <= new Date() ? '#ffebee' : 'inherit',
+                                        opacity: prescription.status === 'done' ? '0.7' : '1'
+                                    }">
+                                    <td @click="prescription.isExpanded = !prescription.isExpanded">{{ prescription.prescriptionNumber }}</td>
+                                    <td @click="prescription.isExpanded = !prescription.isExpanded">{{ prescription.customerName }}</td>
+                                    <td @click="prescription.isExpanded = !prescription.isExpanded">{{ formatDate(prescription.date) }}
+                                        <span v-if="new Date(prescription.date) <= new Date() && prescription.status !== 'done'" 
+                                              style="color: red; margin-left: 8px; font-size: 0.8em;">
+                                            Due
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span :style="{ color: prescription.status === 'done' ? 'green' : 'inherit' }">
+                                            {{ prescription.status === 'done' ? 'Completed' : 'Pending' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button 
+                                            v-if="prescription.status !== 'done'"
+                                            class="btn btn-success btn-sm"
+                                            @click="markPrescriptionDone(prescription.id)">
+                                            {{ translate('done') }}
+                                        </button>
+                                        <i v-else class="fas fa-check" style="color: green;"></i>
+                                    </td>
+                                </tr>
+                                <!-- Existing expanded row content -->
+                                <tr v-if="prescription.isExpanded">
+                                    <td colspan="5">
+                                        <div class="prescription-details">
+                                            <dl>
+                                                <dt>{{ translate('customers') }}:</dt>
+                                                <dd>{{ prescription.customerName }}</dd>
+                                                
+                                                <dt>Prescription #:</dt>
+                                                <dd>{{ prescription.prescriptionNumber }}</dd>
+                                                
+                                                <dt>{{ translate('date') }}:</dt>
+                                                <dd>{{ formatDate(prescription.date) }}</dd>
+                                                
+                                                <dt>Medicine:</dt>
+                                                <dd>{{ prescription.medicine }}</dd>
+                                                
+                                                <dt>Dosage:</dt>
+                                                <dd>{{ prescription.dosage }}</dd>
+                                            </dl>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Apotheke View -->
+                <div v-if="currentView === 'apotheke'">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>{{ translate('apotheke') }} Inventory</h2>
+                        <button class="btn btn-primary" @click="showAddApothekeItemModal = true">
+                            {{ translate('addItem') }}
+                        </button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{{ translate('itemName') }}</th>
+                                <th>Location</th>
+                                <th>Quantity</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in apothekeItems" :key="item.id">
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.location }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-success" @click="selectedApothekeItem = item; showAddStockModal = true">
+                                        Add Stock
+                                    </button>
+                                    <button class="btn btn-sm btn-warning" @click="showWithdrawStockModal = true; selectedApothekeItem = item">
+                                        Withdraw Stock
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- PharmaCalendar View -->
+                <div v-if="currentView === 'pharmaCalendar'">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>{{ translate('pharmaCalendar') }}</h2>
+                        <div class="shift-actions">
+                            <button class="btn btn-primary" @click="showAddEventModal = true">
+                                {{ translate('addEvent') }}
+                            </button>
+                            <button class="btn btn-primary" @click="newShift.type = 'day'; showAddShiftModal = true">
+                                {{ translate('addDayShift') }}
+                            </button>
+                            <button class="btn btn-secondary" @click="newShift.type = 'night'; showAddShiftModal = true">
+                                {{ translate('addNightShift') }}
+                            </button>
+                            <button class="btn btn-success" @click="showAddPaymentModal = true">
+                                {{ translate('addPayment') }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button class="btn btn-sm" @click="prevMonth">&lt;</button>
+                            <h3>{{ currentMonthYear }}</h3>
+                            <button class="btn btn-sm" @click="nextMonth">&gt;</button>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <div v-for="day in weekDays" :key="day">{{ day }}</div>
+                        </div>
+                        <div class="calendar-days">
+                            <div v-for="day in calendarDays" 
+                                 :key="day.date" 
+                                 class="calendar-day"
+                                 :class="{ 'has-events': hasEvents(day.date), 'has-day-shift': day.hasDayShift, 'has-night-shift': day.hasNightShift, 'has-payment': day.hasPayment }"
+                                 @click="selectDate(day.date)">
+                                {{ day.dayNumber }}
+                                <div class="event-dots" v-if="hasEvents(day.date)">
+                                    <span class="event-dot" v-for="event in getEvents(day.date)" :key="event.id"></span>
+                                </div>
+                                <div class="shift-indicator day" v-if="day.hasDayShift">
+                                    Day Shift
+                                </div>
+                                <div class="shift-indicator night" v-if="day.hasNightShift">
+                                    Night Shift
+                                </div>
+                                <div class="payment-indicator" v-if="day.hasPayment">
+                                    Payment Due
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users View -->
+                <div v-if="currentView === 'users'">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>{{ translate('users') }}</h2>
+                        <button class="btn btn-primary" @click="showAddUserModal = true">
+                            {{ translate('addUser') }}
+                        </button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>{{ translate('createdAt') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="user in safeUsers" :key="user.id">
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.phone }}</td>
+                                <td>{{ formatDate(user.createdAt) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Customer Modal -->
+        <div class="modal" v-if="showAddCustomerModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ translate('addCustomer') }}</h3>
+                    <button class="close-btn" @click="showAddCustomerModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>{{ translate('name') }}*</label>
+                        <input type="text" v-model="newCustomer.name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Surname*</label>
+                        <input type="text" v-model="newCustomer.surname" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Phone*</label>
+                        <input type="tel" v-model="newCustomer.phone" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" v-model="newCustomer.email">
+                    </div>
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <label>Address</label>
+                        <input type="text" v-model="newCustomer.address">
+                    </div>
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <label>Description</label>
+                        <textarea v-model="newCustomer.description" rows="3"></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="submitCustomer">{{ translate('addCustomer') }}</button>
+            </div>
+        </div>
+
+        <!-- Import Customers Modal -->
+        <div class="modal" v-if="showImportCustomersModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ translate('importCustomers') }}</h3>
+                    <button class="close-btn" @click="showImportCustomersModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">Please select an Excel file (.xlsx) containing customer data.</p>
+                    <div class="input-group">
+                        <input type="file" 
+                               accept=".xlsx"
+                               @change="importCustomersFromFile"
+                               class="form-control">
+                    </div>
+                    <div class="mt-3">
+                        <h4 class="mb-2">Excel File Format Requirements:</h4>
+                        <ul class="text-muted" style="list-style-type: disc; padding-left: 20px;">
+                            <li>First row should contain column headers</li>
+                            <li>Required columns: name, surname, phone</li>
+                            <li>Optional columns: email, address, description, balance, points</li>
+                        </ul>
+                    </div>
+                    <div class="mt-3">
+                        <button class="btn btn-secondary" @click="downloadTemplate">
+                            Download Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Partner Modal -->
+        <div class="modal" v-if="showAddPartnerModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ translate('addPartner') }}</h3>
+                    <button class="close-btn" @click="showAddPartnerModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>{{ translate('name') }}*</label>
+                        <input type="text" v-model="newPartner.name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Surname*</label>
+                        <input type="text" v-model="newPartner.surname" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Phone*</label>
+                        <input type="tel" v-model="newPartner.phone" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" v-model="newPartner.email">
+                    </div>
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <label>Address</label>
+                        <input type="text" v-model="newPartner.address">
+                    </div>
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <label>Description</label>
+                        <textarea v-model="newPartner.description" rows="3"></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="submitPartner">{{ translate('addPartner') }}</button>
+            </div>
+        </div>
+
+        <!-- Import Prescriptions Modal -->
+        <div class="modal" v-if="showImportPrescriptionsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ translate('importPrescriptions') }}</h3>
+                    <button class="close-btn" @click="showImportPrescriptionsModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">Please select a JSON file containing prescription data.</p>
+                    <div class="input-group">
+                        <input type="file" 
+                               accept=".json"
+                               @change="importPrescriptionsFromFile"
+                               class="form-control">
+                    </div>
+                    <p class="mt-3 text-muted">
+                        File should contain an array of prescription objects with properties: prescriptionNumber, date, medicine, dosage, etc.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Prescription Modal -->
+        <div class="modal" v-if="showAddPrescriptionModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ translate('addPrescription') }}</h3>
+                    <button class="close-btn" @click="showAddPrescriptionModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Prescription Number*</label>
+                        <input type="text" v-model="newPrescription.prescriptionNumber" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Date*</label>
+                        <input type="date" v-model="newPrescription.date" required>
+                    </div>
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <label>{{ translate('customers') }}*</label>
+                        <select v-model="newPrescription.customerId" required>
+                            <option value="">Select a customer</option>
+                            <option v-for="customer in safeCustomers" :key="customer.id" :value="customer.id">
+                                {{ customer.name }} {{ customer.surname }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Medicine*</label>
+                        <input type="text" v-model="newPrescription.medicine" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Dosage*</label>
+                        <input type="text" v-model="newPrescription.dosage" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="submitPrescription">{{ translate('addPrescription') }}</button>
+            </div>
+        </div>
+
+        <!-- Add User Modal -->
+        <div class="modal" v-if="showAddUserModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ translate('addUser') }}</h3>
+                    <button class="close-btn" @click="showAddUserModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Username*</label>
+                        <input type="text" v-model="newUser.username" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password*</label>
+                        <input type="password" v-model="newUser.password" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email*</label>
+                        <input type="email" v-model="newUser.email" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Phone*</label>
+                        <input type="tel" v-model="newUser.phone" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="submitUser">{{ translate('addUser') }}</button>
+            </div>
+        </div>
+        
+        <!-- Add Calendar Event Modal -->
+        <div class="modal" v-if="showAddEventModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ translate('addEvent') }}</h3>
+                    <button class="close-btn" @click="showAddEventModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Date*</label>
+                        <input type="date" v-model="newEvent.date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Title*</label>
+                        <input type="text" v-model="newEvent.title" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Description</label>
+                        <textarea v-model="newEvent.description"></textarea>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3" @click="addEvent">{{ translate('addEvent') }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Shift Modal -->
+        <div class="modal" v-if="showAddShiftModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add {{ newShift.type === 'day' ? translate('addDayShift') : translate('addNightShift') }}</h3>
+                    <button class="close-btn" @click="showAddShiftModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Date*</label>
+                        <input type="date" v-model="newShift.date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Assigned To*</label>
+                        <input type="text" v-model="newShift.assignedTo" required>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3" @click="addShift">{{ newShift.type === 'day' ? translate('addDayShift') : translate('addNightShift') }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Payment Modal -->
+        <div class="modal" v-if="showAddPaymentModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ translate('addPayment') }}</h3>
+                    <button class="close-btn" @click="showAddPaymentModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Date*</label>
+                        <input type="date" v-model="newPayment.date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Amount*</label>
+                        <input type="number" v-model="newPayment.amount" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Description</label>
+                        <input type="text" v-model="newPayment.description">
+                    </div>
+                    <div class="input-group">
+                        <label>Assigned To*</label>
+                        <input type="text" v-model="newPayment.assignedTo" required>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3" @click="addPayment">{{ translate('addPayment') }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Customer Details Modal -->
+        <div class="modal" v-if="currentView === 'customer-details'">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Customer Details</h3>
+                    <button class="close-btn" @click="currentView = 'customers'">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>{{ selectedCustomer.name }} {{ selectedCustomer.surname }}</h2>
+                    </div>
+                    <div class="balance-card">
+                        <h2>Balance: €{{ selectedCustomer.balance.toFixed(2) }}</h2>
+                        <h3>Points: {{ selectedCustomer.points }}</h3>
+                        <div class="balance-actions">
+                            <div class="input-group">
+                                <input type="number" v-model="balanceOperation.amount" placeholder="Amount" class="form-input">
+                            </div>
+                            <div class="input-group">
+                                <input type="text" v-model="balanceOperation.description" placeholder="Description (e.g. items bought)" class="form-input">
+                            </div>
+                            <button class="btn btn-success" @click="balanceOperation.type = 'add'; updateBalance()">
+                                Add Balance
+                            </button>
+                            <button class="btn btn-warning" @click="balanceOperation.type = 'withdraw'; updateBalance()">
+                                Withdraw Balance
+                            </button>
+                        </div>
+                        <div class="points-section">
+                            <h3>Points: {{ selectedCustomer.points }}</h3>
+                            <div class="points-actions">
+                                <div class="input-group">
+                                    <label>Points to Withdraw</label>
+                                    <input type="number" 
+                                           v-model="pointsToWithdraw" 
+                                           min="0" 
+                                           :max="selectedCustomer.points"
+                                           placeholder="Enter points to withdraw">
+                                </div>
+                                <button class="btn btn-warning" 
+                                        @click="withdrawPoints"
+                                        :disabled="!pointsToWithdraw || pointsToWithdraw <= 0 || pointsToWithdraw > selectedCustomer.points">
+                                    Withdraw Points
+                                </button>
+                            </div>
+                            
+                            <!-- Add points history section -->
+                            <div class="points-history" v-if="selectedCustomer.pointsHistory && selectedCustomer.pointsHistory.length">
+                                <h4>Points History</h4>
+                                <div class="points-history-list">
+                                    <div v-for="record in selectedCustomer.pointsHistory" 
+                                         :key="record.id" 
+                                         class="points-history-item">
+                                        <div class="points-history-details">
+                                            <span :class="{'text-success': record.type === 'earned', 'text-warning': record.type === 'withdrawn'}">
+                                                {{ record.type === 'earned' ? '+' : '-' }}{{ record.amount }} points
+                                            </span>
+                                            <span class="points-history-description">{{ record.description }}</span>
+                                        </div>
+                                        <div class="points-history-date">{{ formatDate(record.date) }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="transaction-list">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3>Transaction History</h3>
+                            <button class="btn btn-primary" @click="printTransactionHistory">
+                                <i class="fas fa-print"></i> Print History
+                            </button>
+                        </div>
+                        <h3>Transaction History</h3>
+                        <div v-for="transaction in selectedCustomer.transactions" :key="transaction.id" class="transaction-item">
+                            <div>
+                                <strong>{{ transaction.description }}</strong>
+                                <div>{{ formatDate(transaction.date) }}</div>
+                            </div>
+                            <div :style="{ color: transaction.type === 'payment' || transaction.type === 'add' ? 'green' : 'red' }">
+                                {{ transaction.type === 'payment' || transaction.type === 'add' ? '+' : '-' }}
+                                €{{ transaction.amount.toFixed(2) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Owed Item Modal -->
+        <div class="modal" v-if="showAddOwedItemModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Owed Item</h3>
+                    <button class="close-btn" @click="showAddOwedItemModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>{{ translate('name') }}*</label>
+                        <input type="text" v-model="newOwedItem.name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Quantity*</label>
+                        <input type="number" v-model="newOwedItem.quantity" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="addOwedItem()">{{ translate('addOwedItem') }}</button>
+            </div>
+        </div>
+
+        <!-- Add Lent Item Modal -->
+        <div class="modal" v-if="showAddLentItemModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Lent Item</h3>
+                    <button class="close-btn" @click="showAddLentItemModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>{{ translate('name') }}*</label>
+                        <input type="text" v-model="newLentItem.name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Quantity*</label>
+                        <input type="number" v-model="newLentItem.quantity" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="addLentItem()">{{ translate('addLent') }}</button>
+            </div>
+        </div>
+
+        <!-- Add Apotheke Item Modal -->
+        <div class="modal" v-if="showAddApothekeItemModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add New Apotheke Item</h3>
+                    <button class="close-btn" @click="showAddApothekeItemModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>{{ translate('itemName') }}*</label>
+                        <input type="text" v-model="newApothekeItem.name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Location*</label>
+                        <input type="text" v-model="newApothekeItem.location" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Initial Quantity*</label>
+                        <input type="number" v-model="newApothekeItem.quantity" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="submitApothekeItem">Add Item</button>
+            </div>
+        </div>
+
+        <!-- Add Stock Modal -->
+        <div class="modal" v-if="showAddStockModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Stock to {{ selectedApothekeItem?.name }}</h3>
+                    <button class="close-btn" @click="showAddStockModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Quantity to Add*</label>
+                        <input type="number" v-model="stockOperation.quantity" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="addStock">Add Stock</button>
+            </div>
+        </div>
+
+        <!-- Withdraw Stock Modal -->
+        <div class="modal" v-if="showWithdrawStockModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Withdraw Stock from {{ selectedApothekeItem?.name }}</h3>
+                    <button class="close-btn" @click="showWithdrawStockModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Quantity to Withdraw*</label>
+                        <input type="number" v-model="stockOperation.quantity" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="withdrawStock">Withdraw Stock</button>
+            </div>
+        </div>
+
+        <!-- Add Payment Modal -->
+        <div class="modal" v-if="showAddPaymentModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Payment Schedule</h3>
+                    <button class="close-btn" @click="showAddPaymentModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Date*</label>
+                        <input type="date" v-model="newPayment.date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Amount*</label>
+                        <input type="number" v-model="newPayment.amount" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Description</label>
+                        <input type="text" v-model="newPayment.description">
+                    </div>
+                    <div class="input-group">
+                        <label>Assigned To*</label>
+                        <input type="text" v-model="newPayment.assignedTo" required>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3" @click="addPayment">Add Payment</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Note Modal -->
+        <div class="modal" v-if="showNoteModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{ translate('addNote') }}</h3>
+                    <button class="close-btn" @click="showNoteModal = false">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>{{ translate('title') }}*</label>
+                        <input type="text" v-model="newNote.title" required>
+                    </div>
+                    <div class="input-group">
+                        <label>{{ translate('content') }}*</label>
+                        <textarea v-model="newNote.content" rows="4" required></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>{{ translate('date') }}</label>
+                        <input type="date" v-model="newNote.date">
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3" @click="addNote">{{ translate('addNote') }}</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Vue 3 from CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <script>
+        const { createApp } = Vue;
+        
+        const app = createApp({
+            data() {
+                return {
+                    isLoggedIn: false,
+                    isAdmin: false,
+                    currentView: 'customers',
+                    currentLanguage: 'en',
+                    translations: {
+                        en: {
+                            customers: 'Customers',
+                            partners: 'Partners',
+                            prescriptions: 'Prescriptions',
+                            apotheke: 'Apotheke',
+                            pharmaCalendar: 'PharmaCalendar',
+                            users: 'Users',
+                            addCustomer: 'Add Customer',
+                            importCustomers: 'Import Customers',
+                            addPartner: 'Add Partner',
+                            addPrescription: 'Add Prescription',
+                            importPrescriptions: 'Import Prescriptions',
+                            addUser: 'Add User',
+                            done: 'DONE',
+                            addDayShift: 'Add Day Shift',
+                            addNightShift: 'Add Night Shift',
+                            addPayment: 'Add Payment',
+                            addEvent: 'Add Event',
+                            notes: 'Notes',
+                            addNote: 'Add Note',
+                            noNotes: 'No notes available',
+                            title: 'Title',
+                            content: 'Content',
+                            name: 'Name',
+                            balance: 'Balance',
+                            points: 'Points',
+                            productsOwed: 'Products Owed',
+                            lastPayment: 'Last Payment',
+                            createdAt: 'Created At',
+                            lastUpdated: 'Last Updated',
+                            dashboard: 'Dashboard',
+                            pending: 'Pending',
+                            recentPrescriptions: 'Recent Prescriptions',
+                            upcomingPayments: 'Upcoming Payments',
+                            transactionHistory: 'Transaction History',
+                            deleteNote: 'Delete Note',
+                            noteDeleted: 'Note deleted successfully'
+                        },
+                        gr: {
+                            customers: 'Πελάτες',
+                            partners: 'Συνεργάτες',
+                            prescriptions: 'Συνταγές',
+                            apotheke: 'Φαρμακείο',
+                            pharmaCalendar: 'Ημερολόγιο',
+                            users: 'Χρήστες',
+                            addCustomer: 'Προσθήκη Πελάτη',
+                            importCustomers: 'Εισαγωγή Πελατών',
+                            addPartner: 'Προσθήκη Συνεργάτη',
+                            addPrescription: 'Προσθήκη Συνταγής',
+                            importPrescriptions: 'Εισαγωγή Συνταγών',
+                            addUser: 'Προσθήκη Χρήστη',
+                            done: 'ΟΛΟΚΛΗΡΩΘΗΚΕ',
+                            addDayShift: 'Προσθήκη Πρωινής Βάρδιας',
+                            addNightShift: 'Προσθήκη Νυχτερινής Βάρδιας',
+                            addPayment: 'Προσθήκη Πληρωμής',
+                            addEvent: 'Προσθήκη Συμβάντος',
+                            notes: 'Σημειώσεις',
+                            addNote: 'Προσθήκη Σημείωσης',
+                            noNotes: 'Δεν υπάρχουν σημειώσεις',
+                            title: 'Τίτλος',
+                            content: 'Περιεχόμενο',
+                            name: 'Όνομα',
+                            balance: 'Υπόλοιπο',
+                            points: 'Πόντοι',
+                            productsOwed: 'Οφειλόμενα Προϊόντα',
+                            lastPayment: 'Τελευταία Πληρωμή',
+                            createdAt: 'Ημ. Δημιουργίας',
+                            lastUpdated: 'Τελευταία Ενημέρωση',
+                            dashboard: 'Πίνακας Ελέγχου',
+                            pending: 'Σε Εκκρεμότητα',
+                            recentPrescriptions: 'Πρόσφατες Συνταγές',
+                            upcomingPayments: 'Επερχόμενες Πληρωμές',
+                            transactionHistory: 'Ιστορικό Συναλλαγών',
+                            deleteNote: 'Διαγραφή Σημείωσης',
+                            noteDeleted: 'Η σημείωση διαγράφηκε με επιτυχία'
+                        }
+                    },
+                    loginForm: {
+                        username: '',
+                        password: ''
+                    },
+                    customers: [
+                        {
+                            id: 1,
+                            name: 'John',
+                            surname: 'Doe',
+                            balance: 150,
+                            points: 0,
+                            productsOwed: [],
+                            lastPayment: '2023-10-01',
+                            transactions: [],
+                            owedItems: [],
+                            lentItems: [],
+                            createdAt: new Date(),
+                            updatedAt: new Date()
+                        }
+                    ],
+                    partners: [
+                        {
+                            id: 1, 
+                            name: 'Jane',
+                            surname: 'Smith',
+                            company: 'Example Co',
+                            contact: '123-456-7890',
+                            email: 'jane.smith@example.com',
+                            phone: '123-456-7890',
+                            address: '123 Main St, Anytown, USA',
+                            description: 'A loyal partner',
+                            owedItems: [],
+                            lentItems: [],
+                            owedItemsHistory: [],
+                            lentItemsHistory: [],
+                            isExpanded: false,
+                            createdAt: new Date()
+                        }
+                    ],
+                    prescriptions: [
+                        {
+                            id: 1,
+                            customerId: 1,
+                            prescriptionNumber: '123456', 
+                            date: new Date('2023-10-15'),
+                            medicine: 'Aspirin',
+                            dosage: '100mg',
+                            status: 'pending',
+                            customerName: 'John Doe',
+                            isExpanded: false
+                        }
+                    ],
+                    users: [
+                        {
+                            id: 1,
+                            username: 'admin',
+                            email: 'admin@example.com',
+                            phone: '987-654-3210',
+                            createdAt: new Date()
+                        }
+                    ],
+                    apothekeItems: [],
+                    payments: [],
+                    shifts: [],
+                    newShift: {
+                        type: '',
+                        date: '',
+                        assignedTo: ''
+                    },
+                    showAddShiftModal: false,
+                    showAddApothekeItemModal: false,
+                    showAddStockModal: false,
+                    showWithdrawStockModal: false,
+                    showAddPaymentModal: false,
+                    newApothekeItem: {
+                        name: '',
+                        location: '',
+                        quantity: 0
+                    },
+                    stockOperation: {
+                        quantity: 0
+                    },
+                    newPayment: {
+                        date: '',
+                        amount: 0,
+                        description: '',
+                        assignedTo: ''
+                    },
+                    selectedApothekeItem: null,
+                    showAddCustomerModal: false,
+                    showAddPartnerModal: false,
+                    showAddPrescriptionModal: false,
+                    showAddUserModal: false,
+                    showAddOwedItemModal: false,
+                    showAddLentItemModal: false,
+                    newCustomer: {
+                        name: '',
+                        surname: '',
+                        phone: '',
+                        email: '',
+                        address: '',
+                        description: ''
+                    },
+                    newPartner: {
+                        name: '',
+                        surname: '',
+                        phone: '',
+                        email: '',
+                        address: '',
+                        description: ''
+                    },
+                    newPrescription: {
+                        customerId: '',
+                        prescriptionNumber: '',
+                        date: new Date().toISOString().substr(0, 10),
+                        medicine: '',
+                        dosage: ''
+                    },
+                    newUser: {
+                        username: '',
+                        password: '',
+                        email: '',
+                        phone: ''
+                    },
+                    prescriptionSortOrder: 'desc',
+                    selectedCustomer: {
+                        id: null,
+                        name: '',
+                        surname: '',
+                        balance: 0,
+                        points: 0,
+                        transactions: [],
+                        pointsHistory: []
+                    },
+                    selectedPartnerId: null,
+                    balanceOperation: {
+                        amount: 0,
+                        type: 'add',
+                        description: ''
+                    },
+                    pointsToWithdraw: 0,
+                    newOwedItem: {
+                        name: '',
+                        quantity: 0
+                    },
+                    newLentItem: {
+                        name: '',
+                        quantity: 0
+                    },
+                    showAddEventModal: false,
+                    currentDate: new Date(),
+                    calendarEvents: [],
+                    newEvent: {
+                        date: '',
+                        title: '',
+                        description: ''
+                    },
+                    weekDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    deletePrescriptionTimeouts: new Map(), // Initialize the Map
+                    showImportCustomersModal: false,
+                    showImportPrescriptionsModal: false,
+                    showNoteModal: false,
+                    notes: [],
+                    newNote: {
+                        title: '',
+                        content: '',
+                        date: new Date().toISOString().substr(0, 10)
+                    }
+                }
+            },
+            computed: {
+                safeCustomers() {
+                    return this.customers || [];
+                },
+                safePartners() {
+                    return this.partners || [];
+                },
+                safeUsers() {
+                    return this.users || [];
+                },
+                sortedPrescriptions() {
+                    return [...(this.prescriptions || [])].sort((a, b) => {
+                        const dateA = new Date(a.date);
+                        const dateB = new Date(b.date);
+                        return this.prescriptionSortOrder === 'desc' 
+                            ? dateB - dateA 
+                            : dateA - dateB;
+                    });
+                },
+                currentMonthYear() {
+                    return this.currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+                },
+                calendarDays() {
+                    if (!this.currentDate) return [];
+                    
+                    const year = this.currentDate.getFullYear();
+                    const month = this.currentDate.getMonth();
+                    const firstDay = new Date(year, month, 1);
+                    const lastDay = new Date(year, month + 1, 0);
+                    const days = [];
+                    
+                    let firstWeekday = firstDay.getDay();
+                    firstWeekday = firstWeekday === 0 ? 6 : firstWeekday - 1;
+                    
+                    for (let i = 0; i < firstWeekday; i++) {
+                        days.push({ date: null, dayNumber: '' });
+                    }
+                    
+                    for (let i = 1; i <= lastDay.getDate(); i++) {
+                        const date = new Date(year, month, i);
+                        days.push({ 
+                            date, 
+                            dayNumber: i,
+                            hasEvents: this.hasEvents(date),
+                            hasDayShift: this.shifts && Array.isArray(this.shifts) && 
+                                this.shifts.some(s => s && s.date && 
+                                    new Date(s.date).toDateString() === date.toDateString() && 
+                                    s.type === 'day'
+                                ),
+                            hasNightShift: this.shifts && Array.isArray(this.shifts) && 
+                                this.shifts.some(s => s && s.date && 
+                                    new Date(s.date).toDateString() === date.toDateString() && 
+                                    s.type === 'night'
+                                ),
+                            hasPayment: this.payments && Array.isArray(this.payments) &&
+                                this.payments.some(p => p && p.date &&
+                                    new Date(p.date).toDateString() === date.toDateString()
+                                )
+                        });
+                    }
+                    
+                    return days;
+                },
+                overdueOrDuePrescriptions() {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    return this.prescriptions.filter(prescription => {
+                        const prescriptionDate = new Date(prescription.date);
+                        prescriptionDate.setHours(0, 0, 0, 0);
+                        return prescriptionDate <= today;
+                    });
+                },
+                recentPrescriptions() {
+                    return this.prescriptions
+                        .sort((a, b) => new Date(b.date) - new Date(a.date))
+                        .slice(0, 5);
+                },
+                upcomingPayments() {
+                    return this.payments
+                        ?.filter(payment => new Date(payment.date) >= new Date())
+                        .sort((a, b) => new Date(a.date) - new Date(b.date))
+                        .slice(0, 5) || [];
+                }
+            },
+            methods: {
+                hasEvents(date) {
+                    if (!date || !this.calendarEvents) return false;
+                    return this.calendarEvents.some(event => 
+                        new Date(event.date).toDateString() === date.toDateString()
+                    );
+                },
+
+                getEvents(date) {
+                    if (!date || !this.calendarEvents) return [];
+                    return this.calendarEvents.filter(event => 
+                        new Date(event.date).toDateString() === date.toDateString()
+                    );
+                },
+
+                prevMonth() {
+                    this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() - 1);
+                },
+
+                nextMonth() {
+                    this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1);
+                },
+
+                selectDate(date) {
+                    if (!date) return;
+                    // You can add functionality here to handle date selection
+                    console.log('Selected date:', date);
+                },
+
+                addEvent() {
+                    if (this.newEvent.date && this.newEvent.title) {
+                        const event = {
+                            id: Date.now(),
+                            date: new Date(this.newEvent.date),
+                            title: this.newEvent.title,
+                            description: this.newEvent.description
+                        };
+                        
+                        if (!this.calendarEvents) {
+                            this.calendarEvents = [];
+                        }
+                        
+                        this.calendarEvents.push(event);
+                        this.showAddEventModal = false;
+                        this.newEvent = {
+                            date: '',
+                            title: '',
+                            description: ''
+                        };
+                    }
+                },
+
+                addShift() {
+                    if (this.newShift.date && this.newShift.assignedTo) {
+                        const shift = {
+                            id: Date.now(),
+                            type: this.newShift.type,
+                            date: new Date(this.newShift.date),
+                            assignedTo: this.newShift.assignedTo
+                        };
+                        
+                        if (!this.shifts) {
+                            this.shifts = [];
+                        }
+                        
+                        this.shifts.push(shift);
+                        this.showAddShiftModal = false;
+                        this.newShift = {
+                            type: '',
+                            date: '',
+                            assignedTo: ''
+                        };
+                    }
+                },
+
+                addPayment() {
+                    if (this.newPayment.date && this.newPayment.amount && this.newPayment.assignedTo) {
+                        const payment = {
+                            id: Date.now(),
+                            date: new Date(this.newPayment.date),
+                            amount: parseFloat(this.newPayment.amount),
+                            description: this.newPayment.description,
+                            assignedTo: this.newPayment.assignedTo
+                        };
+                        
+                        if (!this.payments) {
+                            this.payments = [];
+                        }
+                        
+                        this.payments.push(payment);
+                        this.showAddPaymentModal = false;
+                        this.newPayment = {
+                            date: '',
+                            amount: 0,
+                            description: '',
+                            assignedTo: ''
+                        };
+                    }
+                },
+
+                // New methods added based on the plan
+                submitApothekeItem() {
+                    if (this.newApothekeItem.name && this.newApothekeItem.location && this.newApothekeItem.quantity >= 0) {
+                        const item = {
+                            id: Date.now(),
+                            name: this.newApothekeItem.name,
+                            location: this.newApothekeItem.location,
+                            quantity: parseInt(this.newApothekeItem.quantity),
+                            createdAt: new Date()
+                        };
+                        
+                        if (!this.apothekeItems) {
+                            this.apothekeItems = [];
+                        }
+                        
+                        this.apothekeItems.push(item);
+                        this.showAddApothekeItemModal = false;
+                        this.newApothekeItem = {
+                            name: '',
+                            location: '',
+                            quantity: 0
+                        };
+                    }
+                },
+
+                addStock() {
+                    if (this.selectedApothekeItem && this.stockOperation.quantity > 0) {
+                        this.selectedApothekeItem.quantity += parseInt(this.stockOperation.quantity);
+                        this.showAddStockModal = false;
+                        this.stockOperation.quantity = 0;
+                    }
+                },
+
+                withdrawStock() {
+                    if (this.selectedApothekeItem && 
+                        this.stockOperation.quantity > 0 && 
+                        this.selectedApothekeItem.quantity >= this.stockOperation.quantity) {
+                        this.selectedApothekeItem.quantity -= parseInt(this.stockOperation.quantity);
+                        this.showWithdrawStockModal = false;
+                        this.stockOperation.quantity = 0;
+                    } else {
+                        alert('Invalid quantity or insufficient stock');
+                    }
+                },
+
+                setCurrentView(view) {
+                    this.currentView = view;
+                },
+                
+                login() {
+                    if (this.loginForm.username && this.loginForm.password) {
+                        this.isLoggedIn = true;
+                        this.isAdmin = this.loginForm.username === 'admin';
+                    }
+                },
+                formatDate(date) {
+                    return new Date(date).toLocaleDateString();
+                },
+                printTransactionHistory() {
+                    if (!this.selectedCustomer || !this.selectedCustomer.transactions) return;
+                    
+                    const printContent = `
+                        <html>
+                        <head>
+                            <title>Transaction History - ${this.selectedCustomer.name}</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; padding: 20px; }
+                                .header { margin-bottom: 20px; }
+                                .transaction { margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #eee; }
+                                .amount { font-weight: bold; }
+                                .date { color: #666; }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="header">
+                                <h2>${this.translate('transactionHistory')}</h2>
+                                <h3>${this.selectedCustomer.name} ${this.selectedCustomer.surname}</h3>
+                                <p>Current Balance: €${this.selectedCustomer.balance.toFixed(2)}</p>
+                                <p>Current Points: ${this.selectedCustomer.points}</p>
+                            </div>
+                            ${this.selectedCustomer.transactions.map(t => `
+                                <div class="transaction">
+                                    <div class="amount">
+                                        ${t.type === 'add' ? '+' : '-'}€${t.amount.toFixed(2)}
+                                    </div>
+                                    <div>${t.description}</div>
+                                    <div class="date">${new Date(t.date).toLocaleDateString()}</div>
+                                </div>
+                            `).join('')}
+                        </body>
+                        </html>
+                    `;
+                    
+                    const printWindow = window.open('', '_blank');
+                    printWindow.document.write(printContent);
+                    printWindow.document.close();
+                    printWindow.print();
+                },
+                printPartnerHistory(partner) {
+                    if (!partner || (!partner.owedItemsHistory && !partner.lentItemsHistory)) return;
+                    
+                    const printContent = `
+                        <html>
+                        <head>
+                            <title>Partner History - ${partner.name} ${partner.surname}</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; padding: 20px; }
+                                .header { margin-bottom: 20px; }
+                                .section { margin-bottom: 20px; }
+                                .item { margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #eee; }
+                                .status { font-weight: bold; }
+                                .date { color: #666; }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="header">
+                                <h2>Partner History</h2>
+                                <h3>${partner.name} ${partner.surname}</h3>
+                                <p>Company: ${partner.company}</p>
+                                <p>Contact: ${partner.contact}</p>
+                            </div>
+                            
+                            <div class="section">
+                                <h3>Owed Items History</h3>
+                                ${partner.owedItemsHistory && partner.owedItemsHistory.length ? 
+                                    partner.owedItemsHistory.map(item => `
+                                        <div class="item">
+                                            <div>${item.name} - Quantity: ${item.quantity}</div>
+                                            ${item.returnDate ?
+                                                `<div class="date">Returned: ${new Date(item.returnDate).toLocaleDateString()}</div>` 
+                                                : ''
+                                            }
+                                        </div>
+                                    `).join('') 
+                                    : '<p>No owed items history</p>'
+                                }
+                            </div>
+                            
+                            <div class="section">
+                                <h3>Lent Items History</h3>
+                                ${partner.lentItemsHistory && partner.lentItemsHistory.length ? 
+                                    partner.lentItemsHistory.map(item => `
+                                        <div class="item">
+                                            <div>${item.name} - Quantity: ${item.quantity}</div>
+                                            <div class="status">${item.status}</div>
+                                            <div class="date">Added: ${new Date(item.date).toLocaleDateString()}</div>
+                                            ${item.returnDate ? 
+                                                `<div class="date">Returned: ${new Date(item.returnDate).toLocaleDateString()}</div>` 
+                                                : ''
+                                            }
+                                        </div>
+                                    `).join('') 
+                                    : '<p>No lent items history</p>'
+                                }
+                            </div>
+                        </body>
+                        </html>
+                    `;
+                    
+                    const printWindow = window.open('', '_blank');
+                    printWindow.document.write(printContent);
+                    printWindow.document.close();
+                    printWindow.print();
+                },
+                submitCustomer() {
+                    const customer = {
+                        id: Date.now(),
+                        ...this.newCustomer,
+                        balance: 0,
+                        points: 0,
+                        transactions: [],
+                        owedItems: [],
+                        lentItems: [],
+                        productsOwed: [],
+                        createdAt: new Date(),
+                        updatedAt: new Date()
+                    };
+                    this.customers.push(customer);
+                    this.showAddCustomerModal = false;
+                    this.newCustomer = { 
+                        name: '', 
+                        surname: '', 
+                        phone: '', 
+                        email: '', 
+                        address: '', 
+                        description: '' 
+                    };
+                },
+                submitPartner() {
+                    const partner = {
+                        id: Date.now(),
+                        ...this.newPartner,
+                        owedItems: [],
+                        lentItems: [],
+                        owedItemsHistory: [],
+                        lentItemsHistory: [],
+                        isExpanded: false,
+                        createdAt: new Date()
+                    };
+                    this.partners.push(partner);
+                    this.showAddPartnerModal = false;
+                    this.newPartner = { 
+                        name: '', 
+                        surname: '', 
+                        phone: '', 
+                        email: '', 
+                        address: '', 
+                        description: '' 
+                    };
+                },
+                submitPrescription() {
+                    const prescription = {
+                        id: Date.now(),
+                        ...this.newPrescription,
+                        customerName: this.customers.find(c => c.id === this.newPrescription.customerId)?.name,
+                        isExpanded: false,
+                        date: new Date(this.newPrescription.date),
+                        status: 'pending'
+                    };
+                    this.prescriptions.push(prescription);
+                    this.showAddPrescriptionModal = false;
+                    this.newPrescription = {
+                        customerId: '',
+                        prescriptionNumber: '',
+                        date: new Date().toISOString().substr(0, 10),
+                        medicine: '',
+                        dosage: ''
+                    };
+                },
+                submitUser() {
+                    const user = {
+                        id: Date.now(),
+                        ...this.newUser,
+                        createdAt: new Date()
+                    };
+                    this.users.push(user);
+                    this.showAddUserModal = false;
+                    this.newUser = { username: '', password: '', email: '', phone: '' };
+                },
+                returnLentItem(partnerId, itemIndex) {
+                    const partner = this.partners.find(p => p.id === partnerId);
+                    if (partner && partner.lentItems[itemIndex]) {
+                        const returnedItem = partner.lentItems[itemIndex];
+                        const historyItem = {
+                            ...returnedItem,
+                            returnDate: new Date(),
+                            status: 'returned'
+                        };
+                        if (!partner.lentItemsHistory) partner.lentItemsHistory = [];
+                        partner.lentItemsHistory.push(historyItem);
+                        partner.lentItems.splice(itemIndex, 1);
+                    }
+                },
+                returnOwedItem(partnerId, itemIndex) {
+                    const partner = this.partners.find(p => p.id === partnerId);
+                    if (partner && partner.owedItems[itemIndex]) {
+                        const returnedItem = partner.owedItems[itemIndex];
+                        const historyItem = {
+                            ...returnedItem,
+                            returnDate: new Date(),
+                            status: 'returned'
+                        };
+                        if (!partner.owedItemsHistory) partner.owedItemsHistory = [];
+                        partner.owedItemsHistory.push(historyItem);
+                        partner.owedItems.splice(itemIndex, 1);
+                    }
+                },
+                addOwedItem() {
+                    const partner = this.partners.find(p => p.id === this.selectedPartnerId);
+                    if (partner && this.newOwedItem.name && this.newOwedItem.quantity > 0) {
+                        if (!partner.owedItems) partner.owedItems = [];
+                        if (!partner.owedItemsHistory) partner.owedItemsHistory = [];
+                        const newItem = {
+                            name: this.newOwedItem.name,
+                            quantity: parseInt(this.newOwedItem.quantity),
+                            date: new Date(),
+                            status: 'active'
+                        };
+                        partner.owedItems.push(newItem);
+                        partner.owedItemsHistory.push({...newItem});
+                        this.newOwedItem = { name: '', quantity: 0 };
+                        this.showAddOwedItemModal = false;
+                    }
+                },
+                addLentItem() {
+                    const partner = this.partners.find(p => p.id === this.selectedPartnerId);
+                    if (partner && this.newLentItem.name && this.newLentItem.quantity > 0) {
+                        if (!partner.lentItems) partner.lentItems = [];
+                        if (!partner.lentItemsHistory) partner.lentItemsHistory = [];
+                        const newItem = {
+                            name: this.newLentItem.name,
+                            quantity: parseInt(this.newLentItem.quantity),
+                            date: new Date(),
+                            status: 'active'
+                        };
+                        partner.lentItems.push(newItem);
+                        partner.lentItemsHistory.push({...newItem});
+                        this.newLentItem = { name: '', quantity: 0 };
+                        this.showAddLentItemModal = false;
+                    }
+                },
+                showCustomerDetails(customer) {
+                    if (!customer.transactions) {
+                        customer.transactions = [];
+                    }
+                    this.selectedCustomer = {
+                        ...customer,
+                        transactions: customer.transactions || []
+                    };
+                    this.currentView = 'customer-details';
+                },
+                toggleLanguage() {
+                    this.currentLanguage = this.currentLanguage === 'en' ? 'gr' : 'en';
+                },
+                translate(key) {
+                    return this.translations[this.currentLanguage][key] || key;
+                },
+                addNote() {
+                    if (this.newNote.title && this.newNote.content) {
+                        const note = {
+                            id: Date.now(),
+                            ...this.newNote
+                        };
+                        this.notes.push(note);
+                        this.showNoteModal = false;
+                        this.newNote = {
+                            title: '',
+                            content: '',
+                            date: new Date().toISOString().substr(0, 10)
+                        };
+                    }
+                },
+                deleteNote(noteId) {
+                    const index = this.notes.findIndex(note => note.id === noteId);
+                    if (index !== -1) {
+                        this.notes.splice(index, 1);
+                    }
+                },
+                updateBalance() {
+                    if (!this.selectedCustomer || !this.balanceOperation.amount) return;
+                    
+                    const amount = parseFloat(this.balanceOperation.amount);
+                    if (isNaN(amount) || amount <= 0) return;
+
+                    const transaction = {
+                        id: Date.now(),
+                        amount: amount,
+                        type: this.balanceOperation.type,
+                        description: this.balanceOperation.description || 
+                            `${this.balanceOperation.type === 'add' ? 'Added' : 'Withdrew'} balance`,
+                        date: new Date()
+                    };
+
+                    // Update customer balance and add points for payments
+                    if (this.balanceOperation.type === 'add') {
+                        this.selectedCustomer.balance += amount;
+                        // Add 10 points for every 1 currency unit spent
+                        const pointsToAdd = Math.floor(amount * 10); // Changed multiplier to 10
+                        if (pointsToAdd > 0) {
+                            if (!this.selectedCustomer.points) {
+                                this.selectedCustomer.points = 0;
+                            }
+                            this.selectedCustomer.points += pointsToAdd;
+                            
+                            // Initialize pointsHistory if it doesn't exist
+                            if (!this.selectedCustomer.pointsHistory) {
+                                this.selectedCustomer.pointsHistory = [];
+                            }
+                            
+                            this.selectedCustomer.pointsHistory.push({
+                                id: Date.now(),
+                                amount: pointsToAdd,
+                                type: 'earned',
+                                description: `Points earned from payment of €${amount} (${pointsToAdd} points = €${amount})`,
+                                date: new Date()
+                            });
+                        }
+                    } else {
+                        if (this.selectedCustomer.balance < amount) {
+                            alert('Insufficient balance');
+                            return;
+                        }
+                        this.selectedCustomer.balance -= amount;
+                    }
+
+                    // Add transaction to history
+                    if (!this.selectedCustomer.transactions) {
+                        this.selectedCustomer.transactions = [];
+                    }
+                    this.selectedCustomer.transactions.push(transaction);
+
+                    // Update customer in the customers array
+                    const customerIndex = this.customers.findIndex(c => c.id === this.selectedCustomer.id);
+                    if (customerIndex !== -1) {
+                        this.customers[customerIndex] = {...this.selectedCustomer};
+                    }
+
+                    // Reset balance operation
+                    this.balanceOperation = {
+                        amount: 0,
+                        type: 'add',
+                        description: ''
+                    };
+                },
+                withdrawPoints() {
+                    if (!this.selectedCustomer || !this.pointsToWithdraw) {
+                        console.log('Invalid customer or points amount');
+                        return;
+                    }
+
+                    const points = parseInt(this.pointsToWithdraw);
+                    if (isNaN(points) || points <= 0 || points > this.selectedCustomer.points) {
+                        console.log('Invalid points amount');
+                        return;
+                    }
+
+                    // Subtract points from customer's balance
+                    this.selectedCustomer.points -= points;
+
+                    // Add to points history
+                    if (!this.selectedCustomer.pointsHistory) {
+                        this.selectedCustomer.pointsHistory = [];
+                    }
+
+                    this.selectedCustomer.pointsHistory.push({
+                        id: Date.now(),
+                        amount: points,
+                        type: 'withdrawn',
+                        description: `Withdrawn ${points} points`,
+                        date: new Date()
+                    });
+
+                    // Update customer in the customers array
+                    const customerIndex = this.customers.findIndex(c => c.id === this.selectedCustomer.id);
+                    if (customerIndex !== -1) {
+                        this.customers[customerIndex] = {...this.selectedCustomer};
+                    }
+
+                    // Reset points to withdraw
+                    this.pointsToWithdraw = 0;
+                    
+                    // Show success message
+                    alert(`Successfully withdrawn ${points} points`);
+                },
+                markPrescriptionDone(prescriptionId) {
+                    const prescription = this.prescriptions.find(p => p.id === prescriptionId);
+                    if (prescription) {
+                        prescription.status = 'done';
+                        
+                        // Cancel any existing timeout for this prescription
+                        if (this.deletePrescriptionTimeouts.has(prescriptionId)) {
+                            clearTimeout(this.deletePrescriptionTimeouts.get(prescriptionId));
+                            this.deletePrescriptionTimeouts.delete(prescriptionId);
+                        }
+                        
+                        // Optional: Set a timeout to remove the prescription after some time
+                        const timeout = setTimeout(() => {
+                            const index = this.prescriptions.findIndex(p => p.id === prescriptionId);
+                            if (index !== -1) {
+                                this.prescriptions.splice(index, 1);
+                            }
+                            this.deletePrescriptionTimeouts.delete(prescriptionId);
+                        }, 30000); // Remove after 30 seconds
+                        
+                        this.deletePrescriptionTimeouts.set(prescriptionId, timeout);
+                    }
+                },
+                // New Methods Added
+                checkUpcomingShifts() {
+                    if (!this.shifts) return;
+                    
+                    const today = new Date();
+                    const tomorrow = new Date(today);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    
+                    this.shifts.forEach(shift => {
+                        const shiftDate = new Date(shift.date);
+                        
+                        // Check if shift is upcoming (within next 24 hours)
+                        if (shiftDate >= today && shiftDate <= tomorrow) {
+                            this.notifyUpcomingShift(shift);
+                        }
+                    });
+                },
+                checkUpcomingPayments() {
+                    if (!this.payments) return;
+                    
+                    const today = new Date();
+                    const threeDaysFromNow = new Date(today);
+                    threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3);
+                    
+                    this.payments.forEach(payment => {
+                        const paymentDate = new Date(payment.date);
+                        
+                        // Check if payment is due within next 3 days
+                        if (paymentDate >= today && paymentDate <= threeDaysFromNow) {
+                            this.notifyUpcomingPayment(payment);
+                        }
+                    });
+                },
+                checkPrescriptionAlerts() {
+                    if (!this.prescriptions) return;
+                    
+                    const today = new Date();
+                    this.prescriptions.forEach(prescription => {
+                        if (prescription.status !== 'done') {
+                            const prescriptionDate = new Date(prescription.date);
+                            if (prescriptionDate <= today) {
+                                this.notifyOverduePrescription(prescription);
+                            }
+                        }
+                    });
+                },
+                notifyUpcomingShift(shift) {
+                    if (Notification.permission === "granted") {
+                        new Notification(`Upcoming ${shift.type} Shift`, {
+                            body: `${shift.assignedTo} has a ${shift.type} shift starting on ${new Date(shift.date).toLocaleString()}`
+                        });
+                    }
+                },
+                notifyUpcomingPayment(payment) {
+                    if (Notification.permission === "granted") {
+                        new Notification("Upcoming Payment Due", {
+                            body: `Payment of €${payment.amount} due on ${new Date(payment.date).toLocaleDateString()} for ${payment.assignedTo}`
+                        });
+                    }
+                },
+                notifyOverduePrescription(prescription) {
+                    if (Notification.permission === "granted") {
+                        new Notification("Overdue Prescription", {
+                            body: `Prescription #${prescription.prescriptionNumber} for ${prescription.customerName} is overdue`
+                        });
+                    }
+                }
+            },
+            mounted() {
+                // Initialize deletePrescriptionTimeouts if not already initialized
+                if (!this.deletePrescriptionTimeouts) {
+                    this.deletePrescriptionTimeouts = new Map();
+                }
+
+                // Request notification permission on mount
+                if ("Notification" in window) {
+                    Notification.requestPermission();
+                }
+
+                // Set up interval for checking various alerts
+                const checkAlerts = () => {
+                    if (this.shifts && Array.isArray(this.shifts)) {
+                        this.checkUpcomingShifts();
+                    }
+                    if (this.payments && Array.isArray(this.payments)) {
+                        this.checkUpcomingPayments();
+                    }
+                    if (this.currentView === 'prescriptions') {
+                        this.checkPrescriptionAlerts();
+                    }
+                };
+
+                // Initial check
+                checkAlerts();
+
+                // Set up interval for regular checks
+                setInterval(checkAlerts, 60000); // Check every minute
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
